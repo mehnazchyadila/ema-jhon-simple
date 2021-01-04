@@ -1,8 +1,11 @@
 import React from 'react';
 import './Cart.css';
+
 const Cart = (props) => {
     const cart = props.cart;
-    const total = cart.reduce( (total , prd ) => total + prd.price ,0);
+    const total = cart.reduce( (total , prd ) => total + prd.price * (prd.quantity || 1) ,0);
+    // debugger;
+
     let shipping = 0;
     if(total > 35){
         shipping = 0;
@@ -28,6 +31,12 @@ const Cart = (props) => {
             <h5><small>Total Before Tax : ${formatNmbr(total + shipping)}</small></h5>
             <h5><small>Estimated Tax: ${formatNmbr(tax)} </small></h5>
             <h3 className ="orderTotal">Order Total : ${formatNmbr(grandTotal)}</h3>
+            <br/>
+            {
+                props.children
+            }
+
+        
         </div>
     );
 };
